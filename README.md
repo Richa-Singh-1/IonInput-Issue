@@ -1,16 +1,4 @@
 # ionic-scroll
-import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonLabel,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonToolbar
-} from "@ionic/react";
-import React, { useEffect, useState } from "react";
-
 const App = () => {
   const [moveToTop, setMoveToTop] = useState(true);
   const handleScroll = event => {
