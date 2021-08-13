@@ -1,0 +1,49 @@
+"@ionic-native/core": "^5.35.0",
+    "@ionic-native/file": "^5.35.0",
+    "cordova-plugin-file": "^6.0.2",
+    
+    import {File} from "@ionic-native/file";
+    
+    
+    try{
+    // const res = await fetch("http://localhost:8090/");
+    // //const blob = await res.blob();
+      const options = {
+        url: 'http://localhost:8090/',
+        // Optional
+        method: 'GET',
+      };
+
+      // Writes to local filesystem
+    const response = await Http.request(options);
+    console.log('File written to ',File.dataDirectory+'/pleasepleasework.pdf');
+    const filepath = await  File.writeFile(
+      File.dataDirectory,
+      'pleasepleasework.pdf',
+      new Blob([response.data]),
+      {
+        replace: true,
+      }
+    );
+    console.log('filepath',filepath);
+    window['PreviewAnyFile'].previewPath(
+          win =>
+              {
+                  if (win == "SUCCESS") {
+                      console.log('success')
+                  } else if (win == "CLOSING") {
+                      console.log('closing')
+                  } else if (win == "NO_APP") {
+                      console.log('no suitable app to open the file (mainly will appear on android')
+                  } else {
+                      console.log('error')
+                  }
+              },
+          error => console.error("open failed", error),
+          File.dataDirectory+'/pleasepleasework.pdf',
+    );
+    // Browser.open({url:File.dataDirectory+'/pleasepleasework.pdf'})
+
+    }catch(e){
+      console.error(e);
+    }
